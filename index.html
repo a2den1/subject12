@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Subject 12</title>
+    <link rel="icon" href="subject12sns.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
@@ -109,7 +110,7 @@
     <section class="section-full border-t border-white/5">
         <div class="banner-bg opacity-70" style="background-image: url('banner1.png');"></div>
         <div class="content-wrap opacity-40 scale-75">
-            <img src="subject12wc (1).png" class="w-[300px]" alt="logo-mid">
+            <img src="subject12wc (1).png" class="w-[300px]" alt="logo-mid" id="sub-logo">
         </div>
     </section>
 
@@ -138,15 +139,16 @@
             console.log("Unauthorized access to console is restricted.");
         }, 2000);
 
-        const mainLogo = document.getElementById('main-logo');
-        mainLogo.onerror = function() {
-            this.style.display = 'none';
-            const parent = this.parentNode;
-            const span = document.createElement('span');
-            span.className = 'text-white/40 text-5xl font-black tracking-tighter italic';
-            span.innerText = 'SUBJECT 12';
-            parent.appendChild(span);
+        const handleImageError = (imgElement) => {
+            imgElement.onerror = null;
+            imgElement.src = 'sorry.png';
         };
+
+        const mainLogo = document.getElementById('main-logo');
+        const subLogo = document.getElementById('sub-logo');
+
+        if (mainLogo) mainLogo.onerror = () => handleImageError(mainLogo);
+        if (subLogo) subLogo.onerror = () => handleImageError(subLogo);
     </script>
 </body>
 </html>
