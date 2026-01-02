@@ -41,6 +41,37 @@
             z-index: 0;
         }
 
+        /* Animated Mesh Gradient Background */
+        .animated-mesh-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, #001233, #001845, #050a30, #1a0a33);
+            background-size: 400% 400%;
+            animation: gradientMove 10s ease infinite;
+            z-index: 0;
+        }
+
+        .animated-mesh-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 100%, rgba(59, 130, 246, 0.4), transparent 70%),
+                        radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.3), transparent 50%);
+            filter: blur(60px);
+            animation: pulseLight 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulseLight {
+            from { opacity: 0.5; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.1); }
+        }
+
         .content-wrap {
             position: relative;
             z-index: 10;
@@ -82,6 +113,19 @@
             border: 0;
             opacity: 0.01;
         }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus-within {
+            border-color: rgba(59, 130, 246, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -108,9 +152,24 @@
     </section>
 
     <section class="section-full border-t border-white/5">
-        <div class="banner-bg opacity-70" style="background-image: url('banner1.png');"></div>
-        <div class="content-wrap opacity-40 scale-75">
-            <img src="subject12wc (1).png" class="w-[300px]" alt="logo-mid" id="sub-logo">
+        <div class="animated-mesh-bg"></div>
+        <div class="content-wrap w-full max-w-lg px-6">
+            <img src="indicator.png" class="w-[220px] mb-12 opacity-80" alt="indicator" id="sub-logo">
+            
+            <div class="input-field w-full flex items-center p-1 rounded-full">
+                <input 
+                    type="text" 
+                    placeholder="Type something..." 
+                    class="bg-transparent border-none outline-none flex-grow px-6 py-3 text-sm text-white placeholder-white/20"
+                    readonly
+                >
+                <button 
+                    class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-full text-sm font-bold transition-all active:scale-95"
+                    onclick="return false;"
+                >
+                    SEND
+                </button>
+            </div>
         </div>
     </section>
 
